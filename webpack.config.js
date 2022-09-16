@@ -1,35 +1,37 @@
-var webpack = require("webpack"),
-  path = require("path"),
-  env = require("./scripts/env"),
-  { CleanWebpackPlugin } = require("clean-webpack-plugin"),
-  CopyWebpackPlugin = require("copy-webpack-plugin"),
-  HtmlWebpackPlugin = require("html-webpack-plugin"),
-  WriteFilePlugin = require("write-file-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
-var fileExtensions = [
-  "jpg",
-  "jpeg",
-  "png",
-  "gif",
-  "eot",
-  "otf",
-  "svg",
-  "ttf",
-  "woff",
-  "woff2",
+const ESLintPlugin = require('eslint-webpack-plugin');
+const env = require('./scripts/env');
+
+const fileExtensions = [
+  'jpg',
+  'jpeg',
+  'png',
+  'gif',
+  'eot',
+  'otf',
+  'svg',
+  'ttf',
+  'woff',
+  'woff2',
 ];
 
 var options = {
-  mode: process.env.NODE_ENV || "development",
+  mode: process.env.NODE_ENV || 'development',
   entry: {
-    popup: path.join(__dirname, "src", "popup.js"),
-    background: path.join(__dirname, "src", "background.js"),
-    content: path.join(__dirname, "src", "content.js"),
+    popup: path.join(__dirname, 'src', 'popup.js'),
+    background: path.join(__dirname, 'src', 'background.js'),
+    content: path.join(__dirname, 'src', 'content.js'),
   },
   output: {
-    globalObject: "this",
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].bundle.js",
+    globalObject: 'this',
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
@@ -59,22 +61,23 @@ var options = {
       // },
       {
         test: /\.html$/,
-        loader: "html-loader",
+        loader: 'html-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.(js|jsx)$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
     extensions: fileExtensions
-      .map((extension) => "." + extension)
-      .concat([".jsx", ".js", ".css"]),
+      .map((extension) => `.${extension}`)
+      .concat(['.jsx', '.js', '.css']),
   },
   plugins: [
+    new ESLintPlugin(options),
     new webpack.ProgressPlugin(),
     // clean the build folder
     new CleanWebpackPlugin({
@@ -82,14 +85,14 @@ var options = {
       cleanStaleWebpackAssets: false,
     }),
     // expose and write the allowed env vars on the compiled bundle
-    new webpack.EnvironmentPlugin(["NODE_ENV"]),
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: "src/manifest.json",
-          to: path.join(__dirname, "dist"),
+          from: 'src/manifest.json',
+          to: path.join(__dirname, 'dist'),
           force: true,
-          transform: function (content, path) {
+          transform(content, path) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
               JSON.stringify(
@@ -99,32 +102,32 @@ var options = {
                   ...JSON.parse(content.toString()),
                 },
                 null,
-                "\t"
-              )
+                '\t',
+              ),
             );
           },
         },
         {
-          from: "src/background-wrapper.js",
-          to: path.join(__dirname, "dist"),
+          from: 'src/background-wrapper.js',
+          to: path.join(__dirname, 'dist'),
         },
         {
-          from: "src/pages",
-          to: path.join(__dirname, "dist", "pages"),
+          from: 'src/pages',
+          to: path.join(__dirname, 'dist', 'pages'),
         },
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "popup.html"),
-      filename: "popup.html",
-      chunks: ["popup"],
+      template: path.join(__dirname, 'src', 'popup.html'),
+      filename: 'popup.html',
+      chunks: ['popup'],
     }),
     new WriteFilePlugin(),
   ],
 };
 
-if (env.NODE_ENV === "development") {
-  options.devtool = "cheap-module-source-map";
+if (env.NODE_ENV === 'development') {
+  options.devtool = 'cheap-module-source-map';
 }
 
 module.exports = options;
