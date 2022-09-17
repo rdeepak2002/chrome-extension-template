@@ -30,3 +30,13 @@ socket.on('connect', () => {
 socket.on('disconnect', () => {
   console.log('disconnected from socket server');
 });
+
+// example sending message back to sharing.js
+chrome.runtime.onMessage.addListener(
+  (request, sender, sendResponse) => {
+    console.log(sender.tab
+      ? `from a content script:${sender.tab.url}`
+      : 'from the extension');
+    if (request.greeting === 'hello') { sendResponse({ farewell: 'goodbye' }); }
+  },
+);

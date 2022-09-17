@@ -6,6 +6,11 @@ import { loadPage } from './util';
 function show() {
   loadPage('pages/sharing.html', () => {
     console.log('Page loaded');
+
+    // example sending message to content.js
+    chrome.runtime.sendMessage({ greeting: 'hello' }, (response) => {
+      console.log(response.farewell);
+    });
   });
 }
 
