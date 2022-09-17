@@ -1,4 +1,7 @@
-console.log('content.js injected');
+import $ from 'jquery';
 
-const desc = document.getElementsByClassName('ytd-watch-metadata');
-console.log('desc: ', desc);
+console.log('content.js injected into webpage');
+
+// dummy example code of seraching for the description HTML element of a YouTube video using JQuery
+const descriptionElement = $('.ytd-watch-metadata');
+console.log('youtube description element: ', descriptionElement);

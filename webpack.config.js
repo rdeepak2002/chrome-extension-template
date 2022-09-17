@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const ESLintPlugin = require('eslint-webpack-plugin');
-const env = require('./scripts/env');
+const env = require('./build-scripts/env');
 
 const fileExtensions = [
   'jpg',
@@ -35,25 +35,25 @@ var options = {
   },
   module: {
     rules: [
-      // {
-      //     // look for .css or .scss files
-      //     test: /\.(css|scss)$/,
-      //     // in the `src` directory
-      //     use: [
-      //         {
-      //             loader: 'style-loader',
-      //         },
-      //         {
-      //             loader: 'css-loader',
-      //         },
-      //         {
-      //             loader: 'sass-loader',
-      //             options: {
-      //                 sourceMap: true,
-      //             },
-      //         },
-      //     ],
-      // },
+      {
+          // look for .css or .scss files
+          test: /\.(css|scss)$/,
+          // in the `src` directory
+          use: [
+              {
+                  loader: 'style-loader',
+              },
+              {
+                  loader: 'css-loader',
+              },
+              {
+                  loader: 'sass-loader',
+                  options: {
+                      sourceMap: true,
+                  },
+              },
+          ],
+      },
       // {
       //     test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
       //     loader: 'file-loader?name=[name].[ext]',
@@ -118,7 +118,7 @@ var options = {
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'popup.html'),
+      template: path.join(__dirname, 'src', 'pages', 'popup.html'),
       filename: 'popup.html',
       chunks: ['popup'],
     }),
