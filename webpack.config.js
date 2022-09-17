@@ -24,9 +24,9 @@ const fileExtensions = [
 var options = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    popup: path.join(__dirname, 'src', 'scripts', 'chrome-extension', 'popup.js'),
-    background: path.join(__dirname, 'src', 'scripts', 'chrome-extension', 'background.js'),
-    content: path.join(__dirname, 'src', 'scripts', 'chrome-extension', 'content.js'),
+    popup: path.join(__dirname, 'src', 'popup.js'),
+    background: path.join(__dirname, 'src', 'background.js'),
+    content: path.join(__dirname, 'src', 'content.js'),
   },
   output: {
     globalObject: 'this',
@@ -106,10 +106,6 @@ var options = {
               ),
             );
           },
-        },
-        {
-          from: 'src/scripts/chrom-extension/background-wrapper.js',
-          to: path.join(__dirname, 'dist'),
         },
         {
           from: 'src/pages',
