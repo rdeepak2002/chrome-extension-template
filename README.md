@@ -1,21 +1,19 @@
-# chrome-manifest-v3-webpack-hotreload-template
-Chrome Extension Template (Manifest v3) Webpack Hot reload
+# Chrome Extension Template (Manifest V3)
 
-## Pre-requisite
-- [NodeJs](https://nodejs.org/) `v17.4.0`
-
-## Project setup
+## Get Started
 - Install dependencies
 ```
-npm install
+npm i
 ```
+
 - Build for production
 ```
 npm run build
 ```
-- Start working on locally
+
+- Run in development mode
 ```
-npm run start
+npm run dev
 ```
 
 ## Load extension in browser locally
@@ -23,17 +21,4 @@ npm run start
 ![Turn on developer mode](images/devmode.png)
 
 - Then click on `Load unpacked`
-- Select `dist` folder inside this repo folder(It will get generated after running either `build` or `start` command)
-
-- If you have run `start` command, you can see something like this in browser console
-![Locally working](images/loaded.png)
-
-## Features
-- Extension is working for `Chrome` and `Edge`.
-- Content Scripts
-- Popup
-- Service Worker (Background script)
-- Webpack Hot reload
-
-## Note
-- Hot reload isn't working for content script in Manifest v3
+- Select `dist` folder inside this repo folder(It will get generated after running either `build` or `dev` command)
