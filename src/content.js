@@ -31,12 +31,13 @@ socket.on('disconnect', () => {
   console.log('disconnected from socket server');
 });
 
-// example sending message back to sharing.js
+/**
+ * Example of a message listener, so popup.js can send messages to us and
+ * we can handle it here, then we can send a response back to popup.js with some data
+ */
 chrome.runtime.onMessage.addListener(
   (request, sender, sendResponse) => {
-    console.log(sender.tab
-      ? `from a content script:${sender.tab.url}`
-      : 'from the extension');
+    console.log('got message from popup.js');
     if (request.greeting === 'hello') { sendResponse({ farewell: 'goodbye' }); }
   },
 );
