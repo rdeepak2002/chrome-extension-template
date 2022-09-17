@@ -1,3 +1,5 @@
+// this is a content script that allows us to modify the page we are on: https://developer.chrome.com/docs/extensions/mv3/content_scripts/
+
 import $ from 'jquery';
 
 console.log('content.js injected into webpage');
