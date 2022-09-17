@@ -3,7 +3,7 @@ import axios from 'axios';
 /**
  * URL of our server
  */
-const API_URL = 'http://localhost:8080/api/v1';
+const API_URL = 'http://localhost:8080';
 
 /**
  * Request to sign-in endpoint of our server
@@ -13,7 +13,7 @@ const API_URL = 'http://localhost:8080/api/v1';
  * @param {function} errorCallback function called when API has error (ex: status 400 or 500)
  */
 function signIn(username, password, successCallback, errorCallback) {
-  axios.post(`${API_URL}/auth/sign-in`, {
+  axios.post(`${API_URL}/api/v1/auth/sign-in`, {
     username: username || '',
     password: password || '',
   }).then(successCallback, errorCallback);
@@ -28,4 +28,4 @@ function searchForUserByEmail(email) {
   console.log('searching for user by email: ', email);
 }
 
-export { signIn, searchForUserByEmail };
+export { API_URL, signIn, searchForUserByEmail };

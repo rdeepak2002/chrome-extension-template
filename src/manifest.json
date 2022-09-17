@@ -17,6 +17,6 @@
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
-  "permissions": ["scripting", "proxy", "tts", "ttsEngine", "tabs"],
+  "permissions": ["scripting", "proxy", "tts", "ttsEngine", "tabs", "webRequest", "webNavigation"],
   "host_permissions": ["http://*/*", "https://*/*", "<all_urls>"]
 }
